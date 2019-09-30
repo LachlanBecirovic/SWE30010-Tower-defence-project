@@ -2842,7 +2842,7 @@ Transform:
   - {fileID: 1561140399}
   - {fileID: 1395035948}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &411528638
 Prefab:
@@ -2949,7 +2949,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 23.6
+  field of view: 21.465534
   orthographic: 0
   orthographic size: 5
   m_Depth: 0
@@ -2974,7 +2974,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 422702309}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 50.9, y: 36.4, z: -157}
+  m_LocalPosition: {x: 50.9, y: 36.4, z: -161.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -5244,6 +5244,48 @@ Transform:
   m_PrefabParentObject: {fileID: 4414338068289114, guid: f5afd5dd280b2694eaa2d27e912c6032,
     type: 2}
   m_PrefabInternal: {fileID: 871186338}
+--- !u!1001 &877491687
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4734733380952242, guid: 1ed722a6d56374d4398d6844b623c6e2, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -6.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4734733380952242, guid: 1ed722a6d56374d4398d6844b623c6e2, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 40.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4734733380952242, guid: 1ed722a6d56374d4398d6844b623c6e2, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -6.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4734733380952242, guid: 1ed722a6d56374d4398d6844b623c6e2, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4734733380952242, guid: 1ed722a6d56374d4398d6844b623c6e2, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4734733380952242, guid: 1ed722a6d56374d4398d6844b623c6e2, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4734733380952242, guid: 1ed722a6d56374d4398d6844b623c6e2, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4734733380952242, guid: 1ed722a6d56374d4398d6844b623c6e2, type: 2}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 1ed722a6d56374d4398d6844b623c6e2, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1001 &881284189
 Prefab:
   m_ObjectHideFlags: 0
@@ -5736,7 +5778,7 @@ Transform:
   - {fileID: 902272845}
   - {fileID: 1828812348}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &947417087
 Prefab:
@@ -9004,6 +9046,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1499423507}
+  - component: {fileID: 1499423508}
   m_Layer: 0
   m_Name: PathWaypoints
   m_TagString: Untagged
@@ -9036,8 +9079,22 @@ Transform:
   - {fileID: 1739159508}
   - {fileID: 1107176297}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1499423508
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1499423506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36563b204d76fa14d98f33b093830cc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EnemyObject: {fileID: 1556808080163846, guid: 1ed722a6d56374d4398d6844b623c6e2,
+    type: 2}
+  MoveSpeed: 0.5
 --- !u!1001 &1503208748
 Prefab:
   m_ObjectHideFlags: 0
@@ -12450,7 +12507,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: -25.659, y: -16.102001, z: 33.690002}
 --- !u!1001 &2075199610
 Prefab:

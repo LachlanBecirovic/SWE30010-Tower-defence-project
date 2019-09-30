@@ -6,6 +6,7 @@ public class PlaceTower : MonoBehaviour
 {
     public GameObject towerPrefab;
     private GameObject tower;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -17,13 +18,15 @@ public class PlaceTower : MonoBehaviour
     {
         
     }
-    private bool CanPlaceMonster()
+
+    private bool CanPlaceTower()
     {
         return tower == null;
     }
+
     void OnMouseUp()
     {
-        if (CanPlaceMonster())
+        if (CanPlaceTower())
         {
             tower = (GameObject)
               Instantiate(towerPrefab, transform.position, Quaternion.identity);

@@ -5,24 +5,29 @@ using UnityEngine;
 public class PathFollower : MonoBehaviour
 {
     Node[] PathNode;
-    public GameObject Player;
+    public GameObject EnemyObject;
     public float MoveSpeed;
     float Timer;
     int CurrentNode;
     static Vector3 CurrentPositionHolder;
+
     // Start is called before the first frame update
     void Start()
     {
-        PathNode = GetComponentsInChildren<Node> ();
+        PathNode = GetComponentsInChildren<Node>();
         CheckNode();
     }
+
     void CheckNode() {
-        if (CurrentNode < PathNode.Length - 1)
+        //Check if the end of the node list has been reached already
+        if (CurrentNode < PathNode.Length)
         {
             Timer = 0;
             CurrentPositionHolder = PathNode[CurrentNode].transform.position;
         }
     }
+
+    //Draws a debug-only visible line that identifies the path to be made by an enemy.
     void DrawLine()
     {
         for (int i = 0; i < PathNode.Length; i++)
@@ -33,19 +38,20 @@ public class PathFollower : MonoBehaviour
             }
         }
     }
+
     // Update is called once per frame
     void Update()
     {
         DrawLine();
-        Debug.Log(CurrentNode);
+        Debug.Log("Current node number: " + CurrentNode + "/" + PathNode.Length);
         Timer += Time.deltaTime * MoveSpeed;
-        if (Player.transform.position != CurrentPositionHolder)
+        if (EnemyObject.transform.position != CurrentPositionHolder)
         {
-            Player.transform.position = Vector3.Lerp(Player.transform.position, CurrentPositionHolder, Timer);
+            EnemyObject.transform.position = Vector3.Lerp(EnemyObject.transform.position, CurrentPositionHolder, Timer);
         }
         else
         {
-            if (CurrentNode < PathNode.Length - 1)
+            if (CurrentNode < PathNode.Length)
             {
                 CurrentNode++;
                 CheckNode();

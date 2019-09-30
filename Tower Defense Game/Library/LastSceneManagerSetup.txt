@@ -1,8 +1,4 @@
 sceneSetups:
-<<<<<<< HEAD
-- path: Assets/Scenes/RyanScene.unity
-=======
 - path: Assets/Scenes/CarlScene.unity
->>>>>>> 55deb2112845fe62f2df10c5f49fa906ef812092
   isLoaded: 1
   isActive: 1
