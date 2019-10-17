@@ -43,7 +43,7 @@ public class PathFollower : MonoBehaviour
     void Update()
     {
         DrawLine();
-        Debug.Log("Current node number: " + CurrentNode + "/" + PathNode.Length);
+        //Debug.Log("Current node number: " + CurrentNode + "/" + PathNode.Length);
         Timer += Time.deltaTime * MoveSpeed;
         if (EnemyObject.transform.position != CurrentPositionHolder)
         {
