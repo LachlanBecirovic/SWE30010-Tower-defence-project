@@ -47,6 +47,7 @@ public class PathFollower : MonoBehaviour
         Timer += Time.deltaTime * MoveSpeed;
         if (EnemyObject.transform.position != CurrentPositionHolder)
         {
+            Debug.Log("move enemy");
             EnemyObject.transform.position = Vector3.Lerp(EnemyObject.transform.position, CurrentPositionHolder, Timer);
         }
         else
