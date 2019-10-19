@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1556808080163846}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 20.933758, y: 56.066734, z: -6.1250005}
+  m_LocalPosition: {x: 105.933754, y: 27.157553, z: -6.1250005}
   m_LocalScale: {x: 0.1, y: 0.1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -60,11 +60,7 @@ SpriteRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-<<<<<<< HEAD:Tower Defense Game/Assets/Prefabs/TestEnemy.prefab
-  m_StitchLightmapSeams: 0
-=======
   m_StitchLightmapSeams: 1
->>>>>>> 345b97fd41a7ae504f5e4dfc717d396e96bef8d9:Tower Defense Game/Assets/prefabs/TestEnemy.prefab
   m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
