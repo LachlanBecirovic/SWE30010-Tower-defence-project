@@ -352,6 +352,7 @@ GameObject:
   - component: {fileID: 196139547}
   - component: {fileID: 196139546}
   - component: {fileID: 196139545}
+  - component: {fileID: 196139548}
   m_Layer: 5
   m_Name: HighScoreButton
   m_TagString: Untagged
@@ -421,7 +422,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 196139546}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 196139548}
+        m_MethodName: LoadByIndex
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &196139546
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -458,6 +470,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 196139543}
   m_CullTransparentMesh: 0
+--- !u!114 &196139548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 196139543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f17b718858e7e84288ecdbea70ba933, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &197867986
 GameObject:
   m_ObjectHideFlags: 0
@@ -583,7 +607,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 1e-15, y: 143.6}
-  m_SizeDelta: {x: 308, y: 46}
+  m_SizeDelta: {x: 308, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &242476805
 MonoBehaviour:
@@ -1628,7 +1652,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.25, y: 0.75}
   m_AnchorMax: {x: 0.75, y: 0.8}
-  m_AnchoredPosition: {x: -8.599998, y: -126.5}
+  m_AnchoredPosition: {x: -8.600006, y: -126.5}
   m_SizeDelta: {x: 74.7, y: 233.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1119307139
