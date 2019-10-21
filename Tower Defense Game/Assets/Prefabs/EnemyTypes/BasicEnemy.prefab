@@ -97,8 +97,8 @@ MonoBehaviour:
   startingSpeed: 9
   startingHealth: 100
   moneyValue: 10
-  moveSpeed: 0
   healthValue: 0
+  moveSpeed: 0
 --- !u!114 &4103007593073657046
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -111,3 +111,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32e2217ec78eb624394b5b1100b58295, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  waypoints: []

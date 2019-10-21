@@ -4,56 +4,44 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
-    private Node targetNode;
     private Enemy enemyObject;
-    private int currentWavepointIndex;
+    [SerializeField] private Transform[] waypoints;
+    private int waypointIndex = 0;
+    private float movementSpeed;
 
-    // Start is called before the first frame update
     void Start()
     {
-        currentWavepointIndex = 0;
-
-        //Retrieve the object
         enemyObject = GetComponent<Enemy>();
 
-        //Find target waypoint to move to
-        targetNode = PathFollower.PathNodes[0];
+        waypoints = GameManager.Instance.wayPoints;
+        transform.position = waypoints[waypointIndex].transform.position;
     }
-
-    // Update is called once per frame
     void Update()
     {
-        Vector3 moveDirection = targetNode.transform.position - transform.position;
-
-        transform.Translate(moveDirection.normalized * enemyObject.moveSpeed * Time.deltaTime, Space.World);
-
-        if (Vector3.Distance(transform.position, targetNode.transform.position) <= 0.05f) //Use a greater than 0 value to avoid potential over-shooting for fast enemies
-        {
-            RetargetNextWaypoint();
-        }
+        Move();
+        movementSpeed = enemyObject.moveSpeed;
+        ReachedEnd();
     }
-
-    void RetargetNextWaypoint()
+    private void Move()
     {
-        if (currentWavepointIndex < PathFollower.PathNodes.Length - 1)
+        if (waypointIndex <= waypoints.Length - 1)
         {
-            //Enemy has not yet reached the end of the path.
-            currentWavepointIndex++;
-            targetNode = PathFollower.PathNodes[currentWavepointIndex];
-        }
-        else
-        {
-            //Enemy has now reached the end without dying!
-            ReachedEnd();
+            transform.position = Vector2.MoveTowards(transform.position,
+                waypoints[waypointIndex].transform.position,
+                movementSpeed * Time.deltaTime);
+
+            if (transform.position == waypoints[waypointIndex].transform.position)
+            {
+                waypointIndex += 1;
+            }
         }
     }
-
     void ReachedEnd()
     {
-        //TODO lower players lives by 1.
-
-        //Lower enemies alive by one and then destroy self.
-        WaveSpawner.enemyAliveCount--;
-        Destroy(gameObject);
+        if (waypointIndex == waypoints.Length)
+        {
+            WaveSpawner.enemyAliveCount--;
+            Destroy(gameObject);
+        }
     }
 }

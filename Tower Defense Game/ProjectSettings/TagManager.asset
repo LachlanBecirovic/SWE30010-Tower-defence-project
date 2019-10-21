@@ -41,6 +41,9 @@ TagManager:
   - name: bg
     uniqueID: 3292398713
     locked: 0
+  - name: path
+    uniqueID: 3395479959
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
