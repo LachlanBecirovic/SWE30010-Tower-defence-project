@@ -5,43 +5,54 @@ using UnityEngine;
 public class EnemyMovement : MonoBehaviour
 {
     private Enemy enemyObject;
-    [SerializeField] private Transform[] waypoints;
+    [SerializeField] private Transform[] waypointArray;
     private int waypointIndex = 0;
     private float movementSpeed;
 
+    // Start is called before the first frame update
     void Start()
     {
         enemyObject = GetComponent<Enemy>();
 
-        waypoints = GameManager.Instance.wayPoints;
-        transform.position = waypoints[waypointIndex].transform.position;
+        waypointArray = GameManager.Instance.waypointArray; //Load waypoints from GameManager
+        transform.position = waypointArray[waypointIndex].transform.position; //Teleport enemy to first waypoint when spawned
     }
+
+    // Update is called once per frame
     void Update()
     {
-        Move();
-        movementSpeed = enemyObject.moveSpeed;
-        ReachedEnd();
-    }
-    private void Move()
-    {
-        if (waypointIndex <= waypoints.Length - 1)
+        //If the enemy has not reached the end of the waypoint array, move it to the next
+        if (waypointIndex <= waypointArray.Length - 1)
         {
-            transform.position = Vector2.MoveTowards(transform.position,
-                waypoints[waypointIndex].transform.position,
-                movementSpeed * Time.deltaTime);
+            //For testing purposes (and to carry over code from Ryan's now redundant script)
+            //Draw a line to the next node targeted by the enemy
+            DrawLine(waypointIndex);
 
-            if (transform.position == waypoints[waypointIndex].transform.position)
+            //Move enemy towards targeted waypoint
+            transform.position = Vector3.MoveTowards(transform.position, waypointArray[waypointIndex].transform.position, enemyObject.moveSpeed * Time.deltaTime);
+
+            //If the enemy has reached the waypoint, set it's goal to the next in the list
+            if (transform.position == waypointArray[waypointIndex].transform.position)
             {
                 waypointIndex += 1;
             }
         }
-    }
-    void ReachedEnd()
-    {
-        if (waypointIndex == waypoints.Length)
+
+        //If the enemy has reached the end without dying it should lower the player's lives by 1 and destroy itself.
+        if (waypointIndex == waypointArray.Length)
         {
+            //TODO lower players lives by 1.
+
+            //Lower enemies alive by one and then destroy self.
             WaveSpawner.enemyAliveCount--;
             Destroy(gameObject);
         }
+    }
+
+    //Draw next node the enemy is targeting
+    //Visible in editor only for debug purposes
+    void DrawLine(int i)
+    {
+        Debug.DrawLine(waypointArray[i].transform.position, enemyObject.transform.position, Color.green);
     }
 }
