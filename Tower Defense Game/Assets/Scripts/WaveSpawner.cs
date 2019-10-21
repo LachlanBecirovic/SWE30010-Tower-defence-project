@@ -5,15 +5,14 @@ using UnityEngine;
 public class WaveSpawner : MonoBehaviour {
 
     //Public variables (visible to editor)
-    public GameObject enemyPrefab; //Enemy prefab/gameobject to spawn
-    //TODO: Add more enemy types here.
+    public WaveType[] waveInfo;
     public Transform spawnPoint; //Where to spawn enemies from;
     public float waveCooldown = 10f; //Variable to control time between each wave. Decrease this during testing!
     public static int enemyAliveCount = 0; //Static so enemies can modify variable on their death/reaching the end
+    public static int waveNumber;
 
     //Private variables
     private float countdownTimer;
-    private int waveNumber;
 
     //Method called at the instantiation of the scene
     void Start()
@@ -21,6 +20,8 @@ public class WaveSpawner : MonoBehaviour {
         //Reset variables to starting values
         enemyAliveCount = 0;
         countdownTimer = waveCooldown; //Set the time until the wave begins to whatever set in the editor via the public variable
+
+        waveNumber = 0; //Reset the wave counter.
     }
 
     //Method called each frame from within the game
@@ -48,27 +49,50 @@ public class WaveSpawner : MonoBehaviour {
         }
     }
 
+    [System.Serializable]
+    //https://docs.unity3d.com/ScriptReference/Serializable.html
+    //Serializing a class lets the Unity Editor embed the class properties into the editor.
+    //This is done so we can edit each wave within the editor.
+    //The class/object should contain the information related to each wave.
+    //What enemy spawns, how often, how many
+    public class WaveType
+    {
+        public GameObject enemyTypeForThisWave;
+        //Multiplies the number of enemies to spawn by this value. 1 = 100% of normal, 0.5 = 50%.
+        public float wavePercentage = 1.0f;
+        public float delayBetweenSpawns = 0.8f;
+    }
+
     //Method to spawn a new wave of enemies
     //https://docs.unity3d.com/ScriptReference/WaitForSeconds.html
     //Enumerator is used to pause function for a set amount of time
     IEnumerator SpawnWave()
     {
-        waveNumber++; //Increment the wave number by one at the start of each wave.
+        if (waveNumber >= waveInfo.Length) //Have we gone through all the waves in the game?
+        {
+            //TODO declare a victory
+        }
+        else
+        {
+            waveNumber++; //Increment the wave number by one at the start of each wave.
+        }
+
+        WaveType currentWaveType = waveInfo[waveNumber - 1];
 
         //Calculate enemy count for this wave.
-        int enemyCount = 3 * waveNumber + 4;
-        Debug.Log("Wave #" + waveNumber + " has begun -- spawning " + enemyCount + " enemies."); //Debug log to show wave info.
+        int enemyCount = (int) Mathf.Floor((3 * waveNumber + 2) * currentWaveType.wavePercentage);
+        Debug.Log("Wave #" + waveNumber + " has begun."); //Debug log to show wave info.
 
-        //Spawn number of enemies based off of the variable above
-        for (int i = 1; i < enemyCount; i++)
+        //Spawn number of enemies based off of the count above
+        for (int i = 0; i < enemyCount; i++)
         {
-            SpawnEnemy();
-            yield return new WaitForSeconds(0.5f); //Wait half a second between each enemy spawn
+            SpawnEnemy(currentWaveType.enemyTypeForThisWave);
+            yield return new WaitForSeconds(currentWaveType.delayBetweenSpawns); //Wait half a second between each enemy spawn
         }
     }
 
     //Enemy spawning placed
-    void SpawnEnemy()
+    void SpawnEnemy(GameObject enemyPrefab)
     {
         enemyAliveCount++;
         //Spawn enemy via prefab at whatever location set by the map's spawn point
