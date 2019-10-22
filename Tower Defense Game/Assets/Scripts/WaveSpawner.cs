@@ -44,7 +44,7 @@ public class WaveSpawner : MonoBehaviour {
                 countdownTimer = waveCooldown; //Reset countdown timer
             }
 
-            //TODO: Add a countdown timer string for the player to see time before next wave begins
+            //TODO Add a countdown timer string for the player to see time before next wave begins
             //Add on the GUI display or such
         }
     }

@@ -4,22 +4,24 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public  Transform[] wayPoints;
+    public  Transform[] waypointArray;
 
-    static GameManager _instance;
+    static GameManager gameInstance;
+
+    //GameInstance Property
     public static GameManager Instance
     {
         get
         {
-            if (_instance == null)
+            if (gameInstance == null)
             {
-                _instance = FindObjectOfType(typeof(GameManager)) as GameManager;
+                gameInstance = FindObjectOfType(typeof(GameManager)) as GameManager;
             }
-            return _instance;
+            return gameInstance;
         }
-        set { _instance = value; }
+        set { gameInstance = value; }
     }
-
+    
     void Awake()
     {
         Instance = this;

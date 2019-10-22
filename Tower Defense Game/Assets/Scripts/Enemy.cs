@@ -86,10 +86,4 @@ public class Enemy : MonoBehaviour
 
         Destroy(gameObject); //Destroys the current enemy object.
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
