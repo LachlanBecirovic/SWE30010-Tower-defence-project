@@ -10,9 +10,15 @@ public class WaveSpawner : MonoBehaviour {
     public float waveCooldown = 10f; //Variable to control time between each wave. Decrease this during testing!
     public static int enemyAliveCount = 0; //Static so enemies can modify variable on their death/reaching the end
     public static int waveNumber;
+    public List<GameObject> enemies = new List<GameObject>();
 
     //Private variables
     private float countdownTimer;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     //Method called at the instantiation of the scene
     void Start()
@@ -80,7 +86,7 @@ public class WaveSpawner : MonoBehaviour {
         WaveType currentWaveType = waveInfo[waveNumber - 1];
 
         //Calculate enemy count for this wave.
-        int enemyCount = (int) Mathf.Floor((3 * waveNumber + 2) * currentWaveType.wavePercentage);
+        int enemyCount = (int)Mathf.Floor((3 * waveNumber + 2) * currentWaveType.wavePercentage);
         Debug.Log("Wave #" + waveNumber + " has begun."); //Debug log to show wave info.
 
         //Spawn number of enemies based off of the count above
@@ -96,6 +102,11 @@ public class WaveSpawner : MonoBehaviour {
     {
         enemyAliveCount++;
         //Spawn enemy via prefab at whatever location set by the map's spawn point
-        Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
+        var newEnemy = Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
+        enemies.Add(newEnemy);
     }
+
+    public List<GameObject> Enemies => enemies;
+
+    public static WaveSpawner Instance { get; private set; }
 }

@@ -4,28 +4,22 @@ using UnityEngine;
 
 public class Shoot : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public GameObject projectile;
+    public float targetRadius = 10;
+    public float fireRate = 2;
+    private float _lastShootTime = -1;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     private GameObject GetTarget()
     {
         float minDistance = float.PositiveInfinity;
         GameObject target = null;
-        foreach (var monster in WaveSpawner.Instance.Monsters)
+        foreach (var monster in WaveSpawner.Instance.Enemies)
         {
             if (monster == null)
                 continue;
 
             // Get distance from the actual player game object (_desiredPosition.parent.position)
-            float dist = (monster.transform.position - _desiredPosition.parent.position).sqrMagnitude;
+            float dist = (monster.transform.position - transform.position).sqrMagnitude;
 
             if (dist < minDistance)
             {
@@ -49,60 +43,60 @@ public class Shoot : MonoBehaviour
                 target = null;
         }
 
-        private Vector2 Solve(GameObject targetObj)
+        return target;
+    }
+
+    private Vector2 Solve(GameObject targetObj)
+    {
+        var rb = targetObj.GetComponent<Rigidbody2D>();
+        var bulletSpeed = projectile.GetComponent<ProjectileController>().projectileSpeed;
+
+        var a = Vector2.Dot(rb.velocity, rb.velocity) - Mathf.Pow(bulletSpeed, 2);
+        var b = 2 * Vector2.Dot(targetObj.transform.position - transform.position, rb.velocity);
+        var c = Vector2.Dot(targetObj.transform.position - transform.position, targetObj.transform.position - transform.position);
+
+        float discrim = Mathf.Pow(b, 2) - (4 * a * c);
+
+        if (discrim < 0)
+            return new Vector2();
+
+        float t = -1;
+
+        if (discrim > 0)
+            t = (-b + Mathf.Sqrt(discrim)) / (2 * a);
+
+
+        if (t < 0)
+            t = (-b - Mathf.Sqrt(discrim)) / (2 * a);
+        else
+            t = -b / (2 * a);
+
+        return new Vector2(targetObj.transform.position.x, targetObj.transform.position.y) + rb.velocity * t;
+    }
+
+    private void FixedUpdate()
+    {
+        if (_lastShootTime + 1.0f / fireRate < Time.fixedTime)
         {
-            var rb = targetObj.GetComponent<Rigidbody2D>();
-            var bulletSpeed = projectile.GetComponent<ProjectileController>().projectileSpeed;
+            var target = GetTarget();
 
-            var a = Vector2.Dot(rb.velocity, rb.velocity) - Mathf.Pow(bulletSpeed, 2);
-            var b = 2 * Vector2.Dot(targetObj.transform.position - transform.position, rb.velocity);
-            var c = Vector2.Dot(targetObj.transform.position - transform.position, targetObj.transform.position - transform.position);
-
-            float discrim = Mathf.Pow(b, 2) - (4 * a * c);
-
-            if (discrim < 0)
-                return new Vector2();
-
-            float t = -1;
-
-            if (discrim > 0)
-                t = (-b + Mathf.Sqrt(discrim)) / (2 * a);
-
-
-            if (t < 0)
-                t = (-b - Mathf.Sqrt(discrim)) / (2 * a);
-            else
-                t = -b / (2 * a);
-
-            return new Vector2(targetObj.transform.position.x, targetObj.transform.position.y) + rb.velocity * t;
-        }
-
-        private void FixedUpdate()
-        {
-            if (_lastShootTime + 1.0f / fireRate < Time.fixedTime)
+            if (target != null)
             {
-                var target = GetTarget();
+                var aimDirection = (Vector3)Solve(target) - transform.position;
+                aimDirection.Normalize();
 
-                if (target != null)
-                {
-                    var aimDirection = (Vector3)Solve(target) - transform.position;
-                    aimDirection.Normalize();
+                // Desired aim postion
+                var eulerRoation = new Vector3(0, 0, Mathf.Atan2(-aimDirection.y, -aimDirection.x) * Mathf.Rad2Deg);
+                transform.rotation = Quaternion.Euler(eulerRoation);
 
-                    // Desired aim postion
-                    var eulerRoation = new Vector3(0, 0, Mathf.Atan2(-aimDirection.y, -aimDirection.x) * Mathf.Rad2Deg);
-                    transform.rotation = Quaternion.Euler(eulerRoation);
+                // Create the projectile rotated in the direction of the ship
+                Instantiate(projectile, transform.position, transform.rotation);
 
-                    // Create the projectile rotated in the direction of the ship
-                    Instantiate(projectile, transform.position, transform.rotation);
+                // Play the sound 
+                //SoundManager.Instance.PlaySound("tower_shooting", 0.1f, false);
 
-                    // Play the sound 
-                    //SoundManager.Instance.PlaySound("tower_shooting", 0.1f, false);
-
-                    _lastShootTime = Time.fixedTime;
-                }
+                _lastShootTime = Time.fixedTime;
             }
         }
-
-        return target;
     }
 }
