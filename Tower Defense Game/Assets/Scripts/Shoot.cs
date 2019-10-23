@@ -13,12 +13,13 @@ public class Shoot : MonoBehaviour
     {
         float minDistance = float.PositiveInfinity;
         GameObject target = null;
+        
+         //targeting was returning null because movement is jusyt updating postion not moving so the ray cast is missing and theres no physics
         foreach (var monster in WaveSpawner.Instance.Enemies)
         {
             if (monster == null)
                 continue;
 
-            // Get distance from the actual player game object (_desiredPosition.parent.position)
             float dist = (monster.transform.position - transform.position).sqrMagnitude;
 
             if (dist < minDistance)
@@ -27,7 +28,8 @@ public class Shoot : MonoBehaviour
                 target = monster;
             }
         }
-
+        
+        /*
         if (target != null)
         {
             // Raycast to see if we have line of sight
@@ -42,7 +44,7 @@ public class Shoot : MonoBehaviour
             if (minDistance > Mathf.Pow(targetRadius, 2))
                 target = null;
         }
-
+        */
         return target;
     }
 
@@ -91,9 +93,6 @@ public class Shoot : MonoBehaviour
 
                 // Create the projectile rotated in the direction of the ship
                 Instantiate(projectile, transform.position, transform.rotation);
-
-                // Play the sound 
-                //SoundManager.Instance.PlaySound("tower_shooting", 0.1f, false);
 
                 _lastShootTime = Time.fixedTime;
             }
