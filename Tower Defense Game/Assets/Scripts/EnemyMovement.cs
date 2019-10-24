@@ -8,6 +8,8 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] private Transform[] waypointArray;
     private int waypointIndex = 0;
     private float movementSpeed;
+    public int Health = 3;
+    public Lives Script;
 
     // Start is called before the first frame update
     void Start()
@@ -46,6 +48,9 @@ public class EnemyMovement : MonoBehaviour
             //Lower enemies alive by one and then destroy self.
             WaveSpawner.enemyAliveCount--;
             Destroy(gameObject);
+            Script.LifeLoss();
+
+            //Lives.LifeAmount = Lives.LifeAmount - 1;
         }
     }
 

@@ -113,6 +113,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waypointArray: []
+  Health: 3
+  Script: {fileID: 0}
 --- !u!50 &5416872915380497672
 Rigidbody2D:
   serializedVersion: 4
@@ -132,5 +134,5 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0

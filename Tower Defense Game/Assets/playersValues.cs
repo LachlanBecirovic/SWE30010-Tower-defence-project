@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class playersValues : MonoBehaviour
 {
+
+    public int Lives = 20;
+    
     // Start is called before the first frame update
     void Start()
     {

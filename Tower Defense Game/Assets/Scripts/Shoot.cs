@@ -7,6 +7,7 @@ public class Shoot : MonoBehaviour
     public GameObject projectile;
     public float targetRadius = 10;
     public float fireRate = 2;
+    public int cost = 25;
     private float _lastShootTime = -1;
 
     private GameObject GetTarget()
@@ -93,6 +94,7 @@ public class Shoot : MonoBehaviour
 
                 // Create the projectile rotated in the direction of the ship
                 Instantiate(projectile, transform.position, transform.rotation);
+                transform.Rotate(0, 0, 90);
 
                 _lastShootTime = Time.fixedTime;
             }
